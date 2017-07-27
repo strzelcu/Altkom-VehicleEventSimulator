@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="vehicleEventSimulator@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.3">
+    <root id="1"/>
+    <schema id="2" parent="1" name="vehicleEventSimulator">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="information_schema"/>
+    <schema id="4" parent="1" name="mysql"/>
+    <schema id="5" parent="1" name="performance_schema"/>
+    <schema id="6" parent="1" name="phonebook"/>
+    <schema id="7" parent="1" name="test"/>
+    <table id="8" parent="2" name="Car"/>
+    <table id="9" parent="2" name="Event"/>
+    <table id="10" parent="2" name="GeoPoint"/>
+    <table id="11" parent="2" name="hibernate_sequence"/>
+    <column id="12" parent="8" name="car_id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="13" parent="8" name="car_make">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="14" parent="8" name="car_model">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="15" parent="8" name="car_regNumber">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="16" parent="8" name="car_type">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="17" parent="8" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>car_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="18" parent="9" name="eve_type">
+      <Position>1</Position>
+      <DataType>varchar(31)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="19" parent="9" name="eve_id">
+      <Position>2</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="20" parent="9" name="eve_endAddress">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="21" parent="9" name="eve_endDate">
+      <Position>4</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="22" parent="9" name="eve_endLatitude">
+      <Position>5</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="23" parent="9" name="eve_endLongitude">
+      <Position>6</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="24" parent="9" name="eve_startAddress">
+      <Position>7</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="25" parent="9" name="eve_startDate">
+      <Position>8</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="26" parent="9" name="eve_startLatitude">
+      <Position>9</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="27" parent="9" name="eve_startLongitude">
+      <Position>10</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="28" parent="9" name="workType">
+      <Position>11</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="29" parent="9" name="driveType">
+      <Position>12</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="30" parent="9" name="additionalWorkType">
+      <Position>13</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="31" parent="9" name="awe_temperature">
+      <Position>14</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="32" parent="9" name="car_id">
+      <Position>15</Position>
+      <DataType>bigint(20)|0</DataType>
+    </column>
+    <index id="33" parent="9" name="FKkhsiovm1uvb4o4dyw7j3atjtg">
+      <ColNames>car_id</ColNames>
+    </index>
+    <key id="34" parent="9" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>eve_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="35" parent="10" name="geo_id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="36" parent="10" name="city">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="37" parent="10" name="postalCode">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="38" parent="10" name="street">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="39" parent="10" name="streetNumber">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="40" parent="10" name="latitude">
+      <Position>6</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="41" parent="10" name="longitude">
+      <Position>7</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="42" parent="10" name="event_id">
+      <Position>8</Position>
+      <DataType>bigint(20)|0</DataType>
+    </column>
+    <index id="43" parent="10" name="FK95o11dqyfsliwdl97f9ofucmh">
+      <ColNames>event_id</ColNames>
+    </index>
+    <key id="44" parent="10" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>geo_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="45" parent="11" name="next_val">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+    </column>
+  </database-model>
+</dataSource>
