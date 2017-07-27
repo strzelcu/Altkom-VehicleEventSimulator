@@ -1,6 +1,7 @@
 package ves.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
@@ -8,7 +9,7 @@ import java.util.Date;
 @DiscriminatorColumn(name = "eve_type",
         discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("Event")
-public class Event {
+public class Event implements Serializable{
 
     @Id
     @Column(name = "eve_id")

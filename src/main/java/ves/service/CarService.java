@@ -18,6 +18,11 @@ public class CarService {
         return dao.findAll();
     }
 
+    public Car getCar(String carInfo){
+        Integer id = Integer.valueOf(carInfo.split(" ")[0]);
+        return dao.getOne(id);
+    }
+
     public void saveCar(Car car){
         if(dao != null && car != null) {
             dao.save(car);

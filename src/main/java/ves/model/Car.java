@@ -1,10 +1,11 @@
 package ves.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Car {
+public class Car implements Serializable{
 
     @Id
     @GeneratedValue
@@ -62,4 +63,8 @@ public class Car {
         this.registrationNumber = registrationNumber;
     }
 
+    @Override
+    public String toString() {
+        return getId() + " " + getMake() + " " + getModel() + " " + getRegistrationNumber();
+    }
 }

@@ -1,4 +1,4 @@
-<%@ include file="/WEB-INF/jsp/common.jsp" %>
+<%@ include file="/WEB-INF/jsp/includes/common.jsp" %>
 <html>
 <head>
     <title>Dodaj nowy pojazd</title>
@@ -14,18 +14,21 @@
                 <td>Wpisz mark&#281; pojazdu:</td>
                 <td>
                     <form:input path="make"/>
+                    <form:errors path="make"/>
                 </td>
             </tr>
             <tr>
                 <td>Wpisz model pojazdu:</td>
                 <td>
                     <form:input path="model"/>
+                    <form:errors path="model"/>
                 </td>
             </tr>
             <tr>
                 <td>Wpisz numer rejestracyjny pojazdu:</td>
                 <td>
                     <form:input path="registrationNumber"/>
+                    <form:errors path="registrationNumber"/>
                 </td>
             </tr>
             <tr>
@@ -43,7 +46,7 @@
         </table>
 
         <br>
-        <a href="home">Wr&oacute;&#263;</a>
+        <a href="home.do">Wr&oacute;&#263;</a>
 
     </form:form>
 </body>

@@ -8,18 +8,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ves.model.Car;
-import ves.model.CarType;
-import ves.model.util.validation.CarValidator;
+import ves.model.Event;
 import ves.service.CarService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/addCar.do")
-public class AddCarController {
+@RequestMapping(value = "/addEvent.do")
+public class AddEventFlowController {
 
-    private static final String FORM_VIEW = "addCar";
+    private static final String FORM_VIEW = "addEvent";
     private final static String SUCCESS_VIEW = "home";
 
     @Autowired
@@ -28,36 +27,32 @@ public class AddCarController {
     @RequestMapping(method = RequestMethod.GET)
     public String setupForm(Model model){
         System.setProperty("file.encoding", "UTF-8");
-        model.addAttribute(new Car());
-        model.addAttribute("carTypes", prepareCarTypes());
+        model.addAttribute(new Event());
+        model.addAttribute("cars", prepareCars());
         return FORM_VIEW;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public String submitForm(@ModelAttribute("car") Car car, Errors errors, Model model ) {
 
-        new CarValidator().validate(car, errors);
-
-        if ( errors.hasErrors() ) {
-            model.addAttribute("carTypes", prepareCarTypes());
+        if(errors.hasErrors()){
+            model.addAttribute("cars", prepareCars());
             return FORM_VIEW;
         }
 
-        carService.saveCar(car);
 
         return SUCCESS_VIEW;
     }
 
-    public List prepareCarTypes() {
+    public List prepareCars() {
 
-        List<CarType> carTypes = new ArrayList<CarType>();
+        List<String> cars = new ArrayList<String>();
 
-        for (CarType carType :
-                CarType.values()) {
-            carTypes.add(carType);
+        for (Car car :
+                carService.getAllCars()) {
+            cars.add(String.valueOf(car));
         }
-        return carTypes;
+
+        return cars;
     }
-
-
 }

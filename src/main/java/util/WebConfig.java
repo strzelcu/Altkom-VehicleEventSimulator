@@ -1,8 +1,10 @@
 package util;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -18,7 +20,9 @@ import org.springframework.web.servlet.view.JstlView;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.util.Enumeration;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 @Configuration
 @EnableWebMvc
@@ -39,6 +43,14 @@ public class WebConfig {
         em.setJpaProperties(additionalProperties());
 
         return em;
+    }
+
+    @Bean
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasenames("messages");
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
     }
 
     @Bean
