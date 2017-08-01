@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ves.model.Car;
 import ves.model.CarType;
 import ves.model.util.validation.CarValidator;
-import ves.service.CarService;
+import ves.services.CarService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -49,14 +50,7 @@ public class AddCarController {
     }
 
     public List prepareCarTypes() {
-
-        List<CarType> carTypes = new ArrayList<CarType>();
-
-        for (CarType carType :
-                CarType.values()) {
-            carTypes.add(carType);
-        }
-        return carTypes;
+        return Arrays.asList(CarType.values());
     }
 
 

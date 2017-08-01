@@ -1,27 +1,31 @@
 package ves.model;
 
-
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
-/**
- * Klasa AdditionalWorkEvent odpowiada dodatkowym pracom pojazdów.
- * Dla każdego rodzaju pracy możemy utworzyć nową klasę rozszerzoną
- * o klasę AdditionalWorkEvent, która będzie zawierała dane specyficzne
- * dla dodatkowej pracy np. mierzenie temperatury w chłodni
- */
+import javax.persistence.*;
 
 @Entity
 @DiscriminatorValue("AdditionalWorkEvent")
 public class AdditionalWorkEvent extends Event {
 
-    @Enumerated(EnumType.STRING)
-    private AdditionalWorkType additionalWorkType;
+    @Column(name = "awe_workType")
+    @Enumerated(value = EnumType.STRING)
+    private AdditionalWorkType workType;
 
-    void setAdditionalWorkType(AdditionalWorkType additionalWorkType) {
-        this.additionalWorkType = additionalWorkType;
+    @Column(name = "awe_additionalParameter")
+    private String additionalParameter;
+
+    public AdditionalWorkType getWorkType() {
+        return workType;
     }
 
+    public void setWorkType(AdditionalWorkType workType) {
+        this.workType = workType;
+    }
+
+    public String getAdditionalParameter() {
+        return additionalParameter;
+    }
+
+    public void setAdditionalParameter(String additionalParameter) {
+        this.additionalParameter = additionalParameter;
+    }
 }

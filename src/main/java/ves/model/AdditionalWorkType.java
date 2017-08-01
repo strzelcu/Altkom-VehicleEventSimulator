@@ -1,7 +1,10 @@
 package ves.model;
 
+
 public enum AdditionalWorkType {
 
-    TEMPERATURE_MEASURMENT, SALTING_THE_ROAD
+    PRACA_SOLARKI,
+    PRACA_KOPARKI,
+    POMIAR_TEMPERATURY,
 
 }

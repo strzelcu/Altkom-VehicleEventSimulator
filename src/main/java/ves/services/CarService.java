@@ -1,10 +1,9 @@
-package ves.service;
+package ves.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ves.model.Car;
 import ves.model.repository.CarRepository;
-
 import java.util.List;
 
 @Service
@@ -18,17 +17,23 @@ public class CarService {
         return dao.findAll();
     }
 
-    public Car getCar(String carInfo){
-        Integer id = Integer.valueOf(carInfo.split(" ")[0]);
+    public Car getCar(String carId){
+        int id = Integer.valueOf(carId);
         return dao.getOne(id);
     }
 
-    public void saveCar(Car car){
-        if(dao != null && car != null) {
+    public boolean saveCar(Car car){
+        if(car != null) {
             dao.save(car);
+            return true;
         } else {
-            System.out.println(car + " " + dao);
+            return false;
         }
+    }
+
+    public void removeCar(String carId){
+        int id = Integer.valueOf(carId);
+        dao.delete(id);
     }
 
 

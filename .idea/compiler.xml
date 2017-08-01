@@ -12,6 +12,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="opencagedata-geocoder-library" target="1.5" />
       <module name="springOnly" target="1.5" />
       <module name="springOnlySetup" target="1.5" />
       <module name="ves" target="1.5" />

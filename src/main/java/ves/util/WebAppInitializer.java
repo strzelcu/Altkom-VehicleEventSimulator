@@ -1,4 +1,4 @@
-package util;
+package ves.util;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

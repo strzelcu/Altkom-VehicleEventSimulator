@@ -10,7 +10,7 @@ public class Car implements Serializable{
     @Id
     @GeneratedValue
     @Column(name = "car_id")
-    private Long id;
+    private Integer id;
     @Column(name = "car_make")
     private String make;
     @Column(name = "car_model")
@@ -20,14 +20,25 @@ public class Car implements Serializable{
     private CarType type;
     @Column(name = "car_regNumber")
     private String registrationNumber;
-    @OneToMany(mappedBy = "car")
+    @OneToMany(mappedBy = "car", orphanRemoval = true)
     private List<Event> eventList;
 
-    public Long getId() {
+    public Car() {
+    }
+
+    public Car(String make, String model, CarType type, String registrationNumber, List<Event> eventList) {
+        this.make = make;
+        this.model = model;
+        this.type = type;
+        this.registrationNumber = registrationNumber;
+        this.eventList = eventList;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -63,8 +74,16 @@ public class Car implements Serializable{
         this.registrationNumber = registrationNumber;
     }
 
+    public List<Event> getEventList() {
+        return eventList;
+    }
+
+    public void setEventList(List<Event> eventList) {
+        this.eventList = eventList;
+    }
+
     @Override
     public String toString() {
-        return getId() + " " + getMake() + " " + getModel() + " " + getRegistrationNumber();
+        return getMake() + " " + getModel() + " " + getRegistrationNumber();
     }
 }

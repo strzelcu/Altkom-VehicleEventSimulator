@@ -2,5 +2,5 @@ package ves.model;
 
 
 public enum CarType {
-    CAR, TRUCK, BUS
+    OSOBOWY, CIEZAROWY, BUS, AUTOBUS
 }

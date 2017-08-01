@@ -4,19 +4,29 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Klasa Event jest podstawą każdego zdarzenia.
+ */
+
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "eve_type",
         discriminatorType = DiscriminatorType.STRING)
-@DiscriminatorValue("Event")
-public class Event implements Serializable{
+public abstract class Event implements Serializable{
 
     @Id
+    @GeneratedValue
     @Column(name = "eve_id")
-    private Long id;
+    private Integer id;
 
     @Column(name = "eve_startDate")
     private Date startDate;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private GeoPoint startPoint;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private GeoPoint endPoint;
 
     @Column(name = "eve_endDate")
     private Date endDate;
@@ -25,29 +35,11 @@ public class Event implements Serializable{
     @JoinColumn(name = "car_id")
     private Car car;
 
-    @Column(name = "eve_startLatitude")
-    private double startLatitude;
-
-    @Column(name = "eve_startLongitude")
-    private double startLongitude;
-
-    @Column(name = "eve_startAddress")
-    private String startAddress;
-
-    @Column(name = "eve_endLatitude")
-    private double endLatitude;
-
-    @Column(name = "eve_endLongitude")
-    private double endLongitude;
-
-    @Column(name = "eve_endAddress")
-    private String endAddress;
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -75,51 +67,19 @@ public class Event implements Serializable{
         this.car = car;
     }
 
-    public double getStartLatitude() {
-        return startLatitude;
+    public GeoPoint getStartPoint() {
+        return startPoint;
     }
 
-    public void setStartLatitude(double startLatitude) {
-        this.startLatitude = startLatitude;
+    public void setStartPoint(GeoPoint startPoint) {
+        this.startPoint = startPoint;
     }
 
-    public double getStartLongitude() {
-        return startLongitude;
+    public GeoPoint getEndPoint() {
+        return endPoint;
     }
 
-    public void setStartLongitude(double startLongitude) {
-        this.startLongitude = startLongitude;
-    }
-
-    public String getStartAddress() {
-        return startAddress;
-    }
-
-    public void setStartAddress(String startAddress) {
-        this.startAddress = startAddress;
-    }
-
-    public double getEndLatitude() {
-        return endLatitude;
-    }
-
-    public void setEndLatitude(double endLatitude) {
-        this.endLatitude = endLatitude;
-    }
-
-    public double getEndLongitude() {
-        return endLongitude;
-    }
-
-    public void setEndLongitude(double endLongitude) {
-        this.endLongitude = endLongitude;
-    }
-
-    public String getEndAddress() {
-        return endAddress;
-    }
-
-    public void setEndAddress(String endAddress) {
-        this.endAddress = endAddress;
+    public void setEndPoint(GeoPoint endPoint) {
+        this.endPoint = endPoint;
     }
 }

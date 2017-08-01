@@ -1,9 +1,12 @@
-package util;
+package ves.util;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -20,17 +23,35 @@ import org.springframework.web.servlet.view.JstlView;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import java.util.Enumeration;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 @Configuration
 @EnableWebMvc
+@PropertySource("classpath:configuration.properties")
 @EnableJpaRepositories("ves.model.repository")
-@ComponentScan(basePackages = {"ves.model", "ves.controller", "ves.service"})
+@ComponentScan(basePackages = {"ves.model", "ves.controller", "ves.services"})
 public class WebConfig {
 
-    private final String DATABASE_NAME = "vehicleEventSimulator";
+    @Value("${jdbc.database.name}")
+    private String DATABASE_NAME;
+
+    @Value("${jdbc.login}")
+    private String JDBC_LOGIN;
+
+    @Value("${jdbc.url}")
+    private String JDBC_URL;
+
+    @Value("${jdbc.password}")
+    private String JDBC_PASSWORD;
+
+    @Value("${jdbc.driver}")
+    private String JDBC_DRIVER;
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer
+    propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -57,9 +78,9 @@ public class WebConfig {
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl(String.format("jdbc:mysql://localhost:3306/%s", DATABASE_NAME));
-        dataSource.setUsername( "root" );
-        dataSource.setPassword( "manage" );
+        dataSource.setUrl(String.format(JDBC_URL, DATABASE_NAME));
+        dataSource.setUsername(JDBC_LOGIN);
+        dataSource.setPassword(JDBC_PASSWORD);
         return dataSource;
     }
 
@@ -78,8 +99,9 @@ public class WebConfig {
 
     Properties additionalProperties() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+        properties.setProperty("hibernate.hbm2ddl.auto", "update");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+        properties.setProperty("hibernate.enable_lazy_load_no_trans", "true");
         return properties;
     }
 

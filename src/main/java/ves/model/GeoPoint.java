@@ -8,33 +8,33 @@ public class GeoPoint {
     @Id
     @GeneratedValue
     @Column(name = "geo_id")
-    private Long id;
-    private long latitude;
-    private long longitude;
+    private Integer id;
+    private Double latitude;
+    private Double longitude;
     @Embedded
     private Address address;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public long getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(long latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public long getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(long longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
@@ -44,5 +44,14 @@ public class GeoPoint {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s %s %s",
+                address.getStreet(),
+                address.getHouseNumber(),
+                address.getPostalCode(),
+                address.getCity());
     }
 }

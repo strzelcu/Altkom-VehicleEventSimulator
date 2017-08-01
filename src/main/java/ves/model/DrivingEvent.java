@@ -8,9 +8,10 @@ import java.util.List;
 public class DrivingEvent extends Event {
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "dev_type")
     private DriveType driveType;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "event_id")
     private List<GeoPoint> geoPoints;
 

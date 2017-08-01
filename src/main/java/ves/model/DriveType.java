@@ -1,5 +1,5 @@
 package ves.model;
 
 public enum DriveType {
-    DRIVING, TOWING, FERRY_RIDE
+    JAZDA, HOLOWANIE, PRZEPRAWA_PROMOWA
 }

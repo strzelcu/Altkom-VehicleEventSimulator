@@ -6,4 +6,5 @@ import ves.model.Event;
 
 @Repository
 public interface EventRepository extends JpaRepository<Event, Integer> {
+
 }

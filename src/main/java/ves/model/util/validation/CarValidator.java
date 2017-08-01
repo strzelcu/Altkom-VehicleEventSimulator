@@ -16,8 +16,5 @@ public class CarValidator {
         if (StringUtils.isEmpty(car.getRegistrationNumber())){
             errors.rejectValue("registrationNumber", "required");
         }
-        if (car.getRegistrationNumber().replaceAll(" ", "").length() != 7){
-            errors.rejectValue("registrationNumber", "invalidReg");
-        }
     }
 }
