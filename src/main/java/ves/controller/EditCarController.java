@@ -34,7 +34,7 @@ public class EditCarController {
 
     @RequestMapping(method = RequestMethod.POST)
     public String submitForm(
-            @RequestParam(required = true) String carId,
+            @RequestParam String carId,
             @RequestParam(required = false) String make,
             @RequestParam(required = false) String carModel,
             @RequestParam(required = false) String registrationNumber,

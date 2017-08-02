@@ -6,32 +6,41 @@
 <h1>Vehicle Event Simulator 1.0</h1>
 <h2>Lista zdarze&#324;</h2>
 <c:if test="${eventsList.size() > 0}">
+<a href="home.do">Wr&oacute;&#263;</a>
+<br><br>
 <table border="1">
     <tr>
         <td>ID zdarzenia</td>
         <td>Rodzaj zdarzenia</td>
-        <td>Czas rozpoczecia</td>
-        <td>Czas zakonczenia</td>
+        <td>Czas rozpocz&#281;cia</td>
+        <td>Czas zako&#324;czenia</td>
         <td>Pojazd</td>
         <td>Adres startowy</td>
-        <td>Adres koncowy</td>
+        <td>Adres ko&#324;cowy</td>
         <td>Akcja</td>
     </tr>
     <c:forEach var="event" items="${eventsList}">
         <tr>
-            <td><%=((Event) pageContext.getAttribute("event")).getId()%></td>
+            <td>${event.id}</td>
             <td><%=((Event) pageContext.getAttribute("event")).getClass().getSimpleName()%></td>
-            <td><%=((Event) pageContext.getAttribute("event")).getStartDate()%></td>
-            <td><%=((Event) pageContext.getAttribute("event")).getEndDate()%></td>
-            <td><%=((Event) pageContext.getAttribute("event")).getCar().toString()%></td>
-            <td><%=((Event) pageContext.getAttribute("event")).getStartPoint().getAddress().toString()%></td>
-            <td><%=((Event) pageContext.getAttribute("event")).getEndPoint().getAddress().toString()%></td>
+            <td>${event.startDate.toLocaleString()}</td>
+            <td>${event.endDate.toLocaleString()}</td>
+            <td>${event.car}</td>
+            <td>${event.startPoint.address.toString()}</td>
+            <td>${event.endPoint.address.toString()}</td>
             <td>
                 <form method="post">
                     <button type="submit"
                             name="deleteEvent"
                             value="<%=((Event) pageContext.getAttribute("event")).getId()%>">
                         Usu&#324;
+                    </button>
+                </form>
+                <form method="post">
+                    <button type="submit"
+                            name="getJson"
+                            value="<%=((Event) pageContext.getAttribute("event")).getId()%>">
+                        Pobierz JSON
                     </button>
                 </form>
                 <form method="post">

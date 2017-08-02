@@ -17,7 +17,6 @@ public class ShowEventsController {
     EventService eventService;
 
     private static final String SHOW_EVENTS = "showEvents";
-    private final static String MAP_VIEW = "home";
 
     @RequestMapping(method = RequestMethod.GET)
     public String setupPage(Model model){
@@ -29,18 +28,21 @@ public class ShowEventsController {
     @RequestMapping(method = RequestMethod.POST)
     public String doAction(
             @RequestParam(required = false) String deleteEvent,
-            @RequestParam(required = false) String editCar,
-            RedirectAttributes redirectAttributes,
+            @RequestParam(required = false) String showOnMap,
+            @RequestParam(required = false) String getJson,
             Model model){
 
         if(null != deleteEvent){
             eventService.removeEvent(deleteEvent);
         }
 
-//        if(null != editCar){
-//            redirectAttributes.addFlashAttribute("car", carService.getCar(editCar));
-//            return "redirect:" + EDIT_CAR_VIEW + ".do" + "?carId=" + editCar;
-//        }
+        if(null != showOnMap){;
+            return "redirect:showMap.do" + "?eventId=" + showOnMap;
+        }
+
+        if(null != getJson){
+            return SHOW_EVENTS;
+        }
 
         model.addAttribute("eventsList", eventService.getAllEvents());
         return SHOW_EVENTS;

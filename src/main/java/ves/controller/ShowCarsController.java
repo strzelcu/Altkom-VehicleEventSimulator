@@ -38,7 +38,6 @@ public class ShowCarsController {
         }
 
         if(null != editCar){
-            redirectAttributes.addFlashAttribute("car", carService.getCar(editCar));
             return "redirect:" + EDIT_CAR_VIEW + ".do" + "?carId=" + editCar;
         }
 

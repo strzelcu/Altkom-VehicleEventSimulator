@@ -1,4 +1,3 @@
-<%@ page import="ves.model.Car" %>
 <%@ include file="/WEB-INF/jsp/includes/common.jsp" %>
 <html>
 <title>Lista pojazd&#243;w</title>
@@ -11,7 +10,9 @@
         Usuni&#281;cie pojazdu usuwa r&#243;wnie&#380; wszystkie przypisane do niego zdarzenia
     </font>
 </h3>
-
+<a href="home.do">Wr&oacute;&#263;</a>
+<br>
+<br>
 <table border="1">
     <tr>
         <td>ID Pojazdu</td>
@@ -23,23 +24,23 @@
     </tr>
 <c:forEach var="car" items="${carList}">
         <tr>
-            <td><%=((Car) pageContext.getAttribute("car")).getId()%></td>
-            <td><%=((Car) pageContext.getAttribute("car")).getMake()%></td>
-            <td><%=((Car) pageContext.getAttribute("car")).getModel()%></td>
-            <td><%=((Car) pageContext.getAttribute("car")).getRegistrationNumber()%></td>
-            <td><%=((Car) pageContext.getAttribute("car")).getType()%></td>
+            <td>${car.id}</td>
+            <td>${car.make}</td>
+            <td>${car.model}</td>
+            <td>${car.registrationNumber}</td>
+            <td>${car.type}</td>
             <td>
                 <form method="post">
                 <button type="submit"
                         name="deleteCar"
-                        value="<%=((Car) pageContext.getAttribute("car")).getId()%>">
+                        value="${car.id}">
                     Usu&#324
                 </button>
                 </form>
                 <form method="post">
                     <button type="submit"
                             name="editCar"
-                            value="<%=((Car) pageContext.getAttribute("car")).getId()%>">
+                            value="${car.id}">
                         Edytuj
                     </button>
                 </form>
