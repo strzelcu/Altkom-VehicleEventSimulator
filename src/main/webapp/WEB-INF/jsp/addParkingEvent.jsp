@@ -7,6 +7,9 @@
 <body>
 <h1>Vehicle Event Simulator 1.0</h1>
 <h2>Dodaj nowe zdarzenie postojowe:</h2>
+<c:if test="${error != null}">
+    <h3><font color="red">${error}</font></h3>
+</c:if>
 <form:form method="post" modelAttribute="parkingEvent">
     <table border="0">
         <tr>
@@ -46,7 +49,7 @@
         </tr>
         <tr>
             <td>
-                <input type="submit" value="Zapisz zdarzenie" />
+                <input type="submit" value="Zapisz zdarzenie" onClick="this.form.submit(); this.disabled=true; this.value='Zapisywanie';"/>
             </td>
         </tr>
     </table>

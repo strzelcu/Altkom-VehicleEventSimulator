@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ves.services.EventService;
 
+/**
+ * Klasa ShowMapController jest odpowiedzialna za obsługę danych potrzebnych do
+ * wyświetlenia zdarzenia na mapie
+ */
 @Controller
 @RequestMapping(value = "/showMap.do")
 public class ShowMapController {
@@ -18,8 +22,8 @@ public class ShowMapController {
 
     @GetMapping
     public String prepareMap(
-            @RequestParam(required = true) String eventId,
-            Model model){
+            @RequestParam String eventId,
+            Model model) {
 
         try {
             model.addAttribute("geoJson", eventService.getGeoJSON(eventService.getEvent(eventId)));

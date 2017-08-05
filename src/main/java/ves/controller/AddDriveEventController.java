@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import ves.exceptions.AddressNotFoundException;
 import ves.model.DriveType;
 import ves.model.DrivingEvent;
 import ves.model.GeoPoint;
@@ -19,12 +20,16 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Klasa AddDriveEventController jest odpowiedzialna za obsługę formularza
+ * dodania nowego zdarzenia jazdy do bazy
+ */
 @Controller
 @RequestMapping(value = "/addDriveEvent.do")
 public class AddDriveEventController {
 
     private static final String FORM_VIEW = "addDriveEvent";
-    private final static String SUCCESS_VIEW = "home";
+    private static final String SUCCESS_VIEW = "home";
 
     @Autowired
     private CarService carService;
@@ -36,7 +41,7 @@ public class AddDriveEventController {
     private GraphHopperApiService geoApiService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String setupForm(Model model){
+    public String setupForm(Model model) {
         System.setProperty("file.encoding", "UTF-8");
         model.addAttribute("drivingEvent", new DrivingEvent());
         model.addAttribute("carList", prepareCars());
@@ -48,32 +53,56 @@ public class AddDriveEventController {
     public String submitForm(
             @RequestParam String startAddress,
             @RequestParam String endAddress,
-            @RequestParam String carId,
+            @RequestParam(required = false) String carId,
             @RequestParam String loadAddresses,
-            @ModelAttribute("drivingEvent") DrivingEvent event, Errors errors, Model model ) {
+            @ModelAttribute("drivingEvent") DrivingEvent event, Errors errors, Model model) {
 
-        if(errors.hasErrors()){
+        if (null == carId) {
+            errors.reject("carId", "required");
+        }
+
+        if (errors.hasErrors()) {
             model.addAttribute("carList", prepareCars());
             model.addAttribute("driveTypeList", prepareDriveTypes());
+            model.addAttribute("error", "Prosz&#281; wype&#322;ni&#263; wszystkie pola przed zapisem");
             return FORM_VIEW;
         }
 
-        event.setCar(carService.getCar(carId));
-        event.setStartPoint(geoApiService.getGeoPoint(startAddress));
-        event.setEndPoint(geoApiService.getGeoPoint(endAddress));
-        Object[] track = geoApiService.getViaPoints(event.getStartPoint(),event.getEndPoint(), Boolean.valueOf(loadAddresses));
-        event.setGeoPoints((List<GeoPoint>) track[0]);
-        event.setEndDate(new Date(event.getStartDate().getTime()+((Long)track[1])));
-        eventService.saveEvent(event);
+        try {
+            event.setCar(carService.getCar(carId));
+            event.setStartPoint(geoApiService.getGeoPoint(startAddress));
+            event.setEndPoint(geoApiService.getGeoPoint(endAddress));
+            Object[] track = geoApiService.getViaPoints(event.getStartPoint(), event.getEndPoint(), Boolean.valueOf(loadAddresses));
+            event.setGeoPoints((List<GeoPoint>) track[0]);
+            event.setEndDate(new Date(event.getStartDate().getTime() + ((Long) track[1])));
+            eventService.saveEvent(event);
+        } catch (AddressNotFoundException e) {
+            model.addAttribute("carList", prepareCars());
+            model.addAttribute("driveTypeList", prepareDriveTypes());
+            model.addAttribute("error", "Nie znaleziono adresu. Wpisz poprawne adresy w formularzu.");
+            return FORM_VIEW;
+        }
 
         return SUCCESS_VIEW;
     }
 
+    /**
+     * Metoda przygotowuje listę typów pojazdów potrzebną do wyświetlenia
+     * na stronie formularza
+     *
+     * @return Lista typów pojazdów
+     */
     private List prepareCars() {
         return carService.getAllCars();
     }
 
-    private List prepareDriveTypes(){
+    /**
+     * Metoda przygotowująca listę typów jazdy potrzebną do
+     * do wyświetlenia na stronie formularza
+     *
+     * @return Lista typów jazdy
+     */
+    private List prepareDriveTypes() {
         return Arrays.asList(DriveType.values());
     }
 

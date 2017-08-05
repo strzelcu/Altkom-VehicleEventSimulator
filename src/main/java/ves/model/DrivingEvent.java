@@ -3,6 +3,11 @@ package ves.model;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Klasa DrivingEvent reprezentuje obiekty zdarzeń związanych z poruszaniem się
+ * pojazdu. Oprócz cech z klasy Event zawiera również indywidualne cechy
+ * zdarzenia poruszania się pojazdu.
+ */
 @Entity
 @DiscriminatorValue("DrivingEvent")
 public class DrivingEvent extends Event {
@@ -29,5 +34,10 @@ public class DrivingEvent extends Event {
 
     public void setGeoPoints(List<GeoPoint> geoPoints) {
         this.geoPoints = geoPoints;
+    }
+
+    @Override
+    public String toString() {
+        return "Zdarzenie jazdy";
     }
 }

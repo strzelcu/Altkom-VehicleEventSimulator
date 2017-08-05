@@ -5,14 +5,16 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Klasa Event jest podstawą każdego zdarzenia.
+ * Klasa Event jest podstawą każdego zdarzenia. Wszystkie klasy reprezentujące
+ * obiekty zdarzeń powinny być rozszerzone o klasę Event. Klasa Event jest klasą
+ * abstrakcyjną aby zapobiec utworzeniu obiektu tej klasy.
  */
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "eve_type",
         discriminatorType = DiscriminatorType.STRING)
-public abstract class Event implements Serializable{
+public abstract class Event implements Serializable {
 
     @Id
     @GeneratedValue

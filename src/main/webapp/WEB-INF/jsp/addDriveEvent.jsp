@@ -7,14 +7,17 @@
 <body>
 <h1>Vehicle Event Simulator 1.0</h1>
 <h2>Dodaj nowe zdarzenie jazdy:</h2>
-<form:form method="post" modelAttribute="drivingEvent">
+<c:if test="${error != null}">
+    <h3><span style="color:red">${error}</span></h3>
+</c:if>
+<form:form name="eventForm" method="post" modelAttribute="drivingEvent">
     <table border="0">
         <tr>
             <td>Wybierz pojazd:</td>
             <td>
-                <select name="carId">
+                <select title="carId" name="carId">
                 <c:forEach varStatus="" var="car" items="${carList}">
-                    <option value="<%=((Car) pageContext.getAttribute("car")).getId()%>">${car}</option>
+                    <option value="${car.id}">${car}</option>
                 </c:forEach>
                 </select>
             </td>
@@ -23,14 +26,14 @@
 
             <td>Wpisz adres startowy:</td>
             <td>
-                <input name="startAddress" title="Adres startowy" type="text" >
+                <input name="startAddress" title="Adres startowy">
             </td>
         </tr>
         <tr>
 
             <td>Wpisz adres ko&#324;cowy:</td>
             <td>
-                <input name="endAddress" title="Adres ko&#324;cowy" type="text" >
+                <input name="endAddress" title="Adres ko&#324;cowy">
             </td>
         </tr>
         <tr>
@@ -54,7 +57,7 @@
         </tr>
         <tr>
             <td>
-                <input type="submit" value="Zapisz zdarzenie" />
+                <input type="submit" value="Zapisz zdarzenie" onClick="this.form.submit(); this.disabled=true; this.value='Zapisywanie';"/>
             </td>
         </tr>
 

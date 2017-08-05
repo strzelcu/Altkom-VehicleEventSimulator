@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/jsp/includes/common.jsp" %>
-<c:set var = "now" value = "<%= new java.util.Date()%>" />
+<c:set var="now" value="<%= new java.util.Date()%>"/>
 <html>
 <head>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"
@@ -8,11 +8,11 @@
     <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"
             integrity="sha512-mNqn2Wg7tSToJhvHcqfzLMU6J4mkOImSPTxVZAdo+lcPlk+GhZmYgACEe0x35K7YzW1zJ7XyJV/TT1MrdXvMcA=="
             crossorigin=""></script>
-    <title>Mapa: zdarzenie numer ${event.id}</title>
+    <title>Mapa zdarzenia numer ${event.id}</title>
 </head>
 <body>
 <h1>Vehicle Event Simulator 1.0</h1>
-<h2>Zdarzenie numer ${event.id} z dnia ${event.startDate.toLocaleString()} dla pojazdu ${event.car}</h2>
+<h2>${event} (ID ${event.id}) z dnia ${event.startDate.toLocaleString()} dla pojazdu ${event.car}</h2>
 <div id="mapid" style="width: 100%; height: 400px;"></div>
 <script>
 
@@ -28,9 +28,40 @@
 
     var geojsonFeature = ${geoJson};
 
-    L.geoJSON(geojsonFeature).addTo(mymap);
+    function onEachFeature(feature, layer) {
+        var popupContent = "";
+        if (feature.geometry.type != "LineString") {
+            if (feature.properties && feature.properties.popupContent) {
+                popupContent += "<p><b>" + feature.properties.date + "</b><br>";
+                popupContent += feature.properties.popupContent + "<br>";
+                popupContent += "Pojazd: " + feature.properties.car + "<br>";
+                popupContent += "Adres: " + feature.properties.address + "<br>";
+                popupContent += "Typ: " + feature.properties.type + "<br>";
+                if (feature.properties.additionalWorkValue != null) {
+                    popupContent += "Warto&#347;&#263;: " + feature.properties.additionalWorkValue + "<br>";
+                }
+                popupContent += "</p>";
+            }
 
-    mymap.fitBounds([[${event.startPoint.latitude},${event.startPoint.longitude}],[${event.endPoint.latitude},${event.endPoint.longitude}]]);
+            layer.bindPopup(popupContent);
+        }
+    }
+
+    L.geoJSON(geojsonFeature, {
+
+        filter: function (feature, layer) {
+
+            if (feature.properties) {
+                // If the property "underConstruction" exists and is true, return false (don't render features under construction)
+                return feature.properties.underConstruction !== undefined ? !feature.properties.underConstruction : true;
+            }
+            return false;
+        },
+
+        onEachFeature: onEachFeature
+    }).addTo(mymap);
+
+    mymap.fitBounds([[${event.startPoint.latitude}, ${event.startPoint.longitude}], [${event.endPoint.latitude}, ${event.endPoint.longitude}]]);
 
 </script>
 <br>

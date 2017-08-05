@@ -2,6 +2,10 @@ package ves.model;
 
 import javax.persistence.Embeddable;
 
+/**
+ * Klasa Address jest klasą reprezentującą obiekty adresu
+ * przypisane do obiektów klasy GeoPoint.
+ */
 @Embeddable
 public class Address {
 
@@ -53,7 +57,7 @@ public class Address {
 
     @Override
     public String toString() {
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         result.append(street).append(" ")
                 .append(houseNumber).append(" ")
                 .append(postalCode).append(" ")

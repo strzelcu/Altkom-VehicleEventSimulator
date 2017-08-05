@@ -12,22 +12,25 @@ import ves.model.CarType;
 import ves.model.util.validation.CarValidator;
 import ves.services.CarService;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Klasa AddCarController jest odpowiedzialna za obsługę formularza
+ * dodania nowego pojazdu do bazy danych
+ */
 @Controller
 @RequestMapping(value = "/addCar.do")
 public class AddCarController {
 
     private static final String FORM_VIEW = "addCar";
-    private final static String SUCCESS_VIEW = "home";
+    private static final String SUCCESS_VIEW = "home";
 
     @Autowired
     private CarService carService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String setupForm(Model model){
+    public String setupForm(Model model) {
         System.setProperty("file.encoding", "UTF-8");
         model.addAttribute(new Car());
         model.addAttribute("carTypes", prepareCarTypes());
@@ -35,11 +38,11 @@ public class AddCarController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String submitForm(@ModelAttribute("car") Car car, Errors errors, Model model ) {
+    public String submitForm(@ModelAttribute("car") Car car, Errors errors, Model model) {
 
         new CarValidator().validate(car, errors);
 
-        if ( errors.hasErrors() ) {
+        if (errors.hasErrors()) {
             model.addAttribute("carTypes", prepareCarTypes());
             return FORM_VIEW;
         }
@@ -49,7 +52,13 @@ public class AddCarController {
         return SUCCESS_VIEW;
     }
 
-    public List prepareCarTypes() {
+    /**
+     * Metoda przygotowuje listę typów pojazdów potrzebną do wyświetlenia
+     * na stronie formularza
+     *
+     * @return Lista typów pojazdów
+     */
+    private List prepareCarTypes() {
         return Arrays.asList(CarType.values());
     }
 

@@ -2,6 +2,10 @@ package ves.model;
 
 import javax.persistence.*;
 
+/**
+ * Klasa GeoPoint reprezentuje obiekty geolokacji na potrzeby klasy Event
+ * i DrivingEvent
+ */
 @Entity
 public class GeoPoint {
 
@@ -48,10 +52,9 @@ public class GeoPoint {
 
     @Override
     public String toString() {
-        return String.format("%s %s %s %s",
-                address.getStreet(),
-                address.getHouseNumber(),
-                address.getPostalCode(),
-                address.getCity());
+        return String.format("%s Latitude: %s Longitude: %s",
+                address,
+                latitude,
+                longitude);
     }
 }

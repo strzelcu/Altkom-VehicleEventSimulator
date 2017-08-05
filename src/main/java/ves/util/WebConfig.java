@@ -25,6 +25,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+/**
+ * Klasa WebConfig jest odpowiednikiem konfiguracji Springa w pliku XML
+ */
 @Configuration
 @EnableWebMvc
 @PropertySource("classpath:configuration.properties")
@@ -57,7 +60,7 @@ public class WebConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[] { "ves" });
+        em.setPackagesToScan("ves");
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
@@ -97,7 +100,7 @@ public class WebConfig {
         return new PersistenceExceptionTranslationPostProcessor();
     }
 
-    Properties additionalProperties() {
+    private Properties additionalProperties() {
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");

@@ -5,28 +5,28 @@
 </head>
 <body>
 <h1>Vehicle Event Simulator 1.0</h1>
-<h2>Edytuj pojazd (ID: ${car.id}):</h2>
-<form:form method="post">
+<h2>Edytuj pojazd (Id: ${carId}):</h2>
+<form:form modelAttribute="car" method="post">
     <table border="0">
         <tr>
             <td>Wpisz mark&#281; pojazdu:</td>
             <td>
-                <input type="text" name="make" value="${car.make}"/>
+                <form:input path="make" value="${car.make}"/>
                 <form:errors path="make"/>
             </td>
         </tr>
         <tr>
             <td>Wpisz model pojazdu:</td>
             <td>
-                <input type="text" name="carModel" value="${car.model}"/>
-                <form:errors path="make"/>
+                <form:input path="model" value="${car.model}"/>
+                <form:errors path="model"/>
             </td>
         </tr>
         <tr>
             <td>Wpisz numer rejestracyjny pojazdu:</td>
             <td>
-                <input type="text" name="registrationNumber" value="${car.registrationNumber}"/>
-                <form:errors path="make"/>
+                <form:input path="registrationNumber" value="${car.registrationNumber}"/>
+                <form:errors path="registrationNumber"/>
             </td>
         </tr>
         <tr>

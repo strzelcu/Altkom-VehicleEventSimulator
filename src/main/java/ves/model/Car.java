@@ -4,8 +4,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Klasa Car reprezentuje obiekty zawierające dane na temat pojazdów.
+ * Usunięcie obiektu klasy Car z bazy danych powoduje usunięcie wszystkich
+ * przypisanych do niego zdarzeń.
+ */
 @Entity
-public class Car implements Serializable{
+public class Car implements Serializable {
 
     @Id
     @GeneratedValue
@@ -84,6 +89,6 @@ public class Car implements Serializable{
 
     @Override
     public String toString() {
-        return getMake() + " " + getModel() + " " + getRegistrationNumber();
+        return getMake() + " " + getModel() + " " + getRegistrationNumber() + " " + getType();
     }
 }
